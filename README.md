@@ -10,7 +10,8 @@ In vscode, search for the `open-repository-online` extension.
 
 ## Thanks
 
-Thanks to [@wChenonly](https://github.com/wChenonly) for [https://github.com/wChenonly/vscode-open-in-repository-button](vscode-open-in-repository-button).
+- Thanks to [@wChenonly](https://github.com/wChenonly) for [https://github.com/wChenonly/vscode-open-in-repository-button](vscode-open-in-repository-button)
+- Logo from https://thenounproject.com/icon/browser-6991186/ by Uswa KDT (CC BY 3.0 License)
 
 ## License
 
