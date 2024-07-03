@@ -1,8 +1,8 @@
 {
   "name": "open-repository-in-browser",
-  "displayName": "Open repository in browser",
-  "description": "Open the current repository in the browser",
-  "publisher": "gmolveau",
+  "displayName": "Open git repository in browser",
+  "description": "Open the current git repository in the browser",
+  "publisher": "ms-gmolveau",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.90.0"
