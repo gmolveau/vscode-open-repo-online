@@ -117,18 +117,45 @@ function getRepoUrl() {
         .toString()
         .trim();
 
-      // Get the remote URL
-      let remoteUrl = child_process
-        .execSync(`git remote get-url ${remoteName}`, {
-          cwd: workspaceRoot,
-          encoding: "utf8",
-        })
-        .toString()
-        .trim();
+      if (!remoteName) {
+        remoteName = child_process
+          .execSync(
+            `git for-each-ref --format='%(upstream:short)' refs/heads/${currentBranch}`,
+            { cwd: workspaceRoot, encoding: "utf8" }
+          )
+          .toString()
+          .trim();
+      }
+
+      let remoteUrl = "";
+
+      if (!remoteName) {
+        // if still no remote, maybe the upstream is not well configured
+        // often happens with github
+        // so get the URL from 'origin'
+        remoteUrl = child_process
+          .execSync(`git ls-remote --get-url origin`, {
+            cwd: workspaceRoot,
+            encoding: "utf8",
+          })
+          .toString()
+          .trim();
+      } else {
+        // Get the remote URL
+        remoteUrl = child_process
+          .execSync(`git remote get-url ${remoteName}`, {
+            cwd: workspaceRoot,
+            encoding: "utf8",
+          })
+          .toString()
+          .trim();
+      }
+
+      if (!remoteUrl) {
+        throw new Error("badly configured upstream");
+      }
 
       remoteUrl = cleanUrl(remoteUrl) + "/blob/" + currentBranch;
-      vscode.window.showInformationMessage(remoteUrl);
-      vscode.window.showInformationMessage(currentBranch);
       return remoteUrl;
     } catch (error) {
       // Ignore errors
