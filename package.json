@@ -3,7 +3,7 @@
   "displayName": "Open git repository in browser",
   "description": "Open the current git repository in the browser",
   "publisher": "ms-gmolveau",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.90.0"
   },
