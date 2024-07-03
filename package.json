@@ -1,0 +1,47 @@
+{
+  "name": "open-repository-in-browser",
+  "displayName": "open-repository-in-browser",
+  "description": "open the current repository in the browser",
+  "author": "gmolveau",
+  "license": "MIT",
+  "homepage": "https://github.com/gmolveau/vscode-open-repository-online#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gmolveau/vscode-open-repository-online"
+  },
+  "bugs": {
+    "url": "https://github.com/gmolveau/vscode-open-repository-online/issues"
+  },
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "open-repository-in-browser.openInBrowser",
+        "title": "Open in browser"
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.90.0",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0",
+    "@vscode/vsce": "^2.29.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.5"
+  }
+}
