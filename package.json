@@ -22,7 +22,7 @@
       }
     ]
   },
-  "icon": "res/noun-browser-6991186-t.png",
+  "icon": "res/noun-browser-6991186-t-500.png",
   "author": "gmolveau",
   "license": "MIT",
   "homepage": "https://github.com/gmolveau/vscode-open-repository-online#readme",
