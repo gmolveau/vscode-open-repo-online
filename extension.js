@@ -9,7 +9,7 @@ function showButton() {
   );
   statusBar.command = "open-repository-in-browser.openInBrowser";
   statusBar.text = "$(ports-open-browser-icon)";
-  statusBar.tooltip = "Open in browser";
+  statusBar.tooltip = "Open repository in browser";
   statusBar.show();
 }
 

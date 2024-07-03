@@ -1,20 +1,11 @@
 {
   "name": "open-repository-in-browser",
-  "displayName": "open-repository-in-browser",
-  "description": "open the current repository in the browser",
-  "author": "gmolveau",
-  "license": "MIT",
-  "homepage": "https://github.com/gmolveau/vscode-open-repository-online#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gmolveau/vscode-open-repository-online"
-  },
-  "bugs": {
-    "url": "https://github.com/gmolveau/vscode-open-repository-online/issues"
-  },
+  "displayName": "Open repository in browser",
+  "description": "Open the current repository in the browser",
+  "publisher": "gmolveau",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.90.0"
+    "vscode": "^1.87.0"
   },
   "categories": [
     "Other"
@@ -31,8 +22,20 @@
       }
     ]
   },
+  "author": "gmolveau",
+  "license": "MIT",
+  "homepage": "https://github.com/gmolveau/vscode-open-repository-online#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gmolveau/vscode-open-repository-online"
+  },
+  "bugs": {
+    "url": "https://github.com/gmolveau/vscode-open-repository-online/issues"
+  },
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "vsce package --no-dependencies",
+    "publish": "vsce publish --no-dependencies"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.7",
@@ -41,7 +44,9 @@
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.4.0",
     "@vscode/vsce": "^2.29.0",
+    "bumpp": "^9.4.1",
     "eslint": "^8.57.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vsce": "^2.15.0"
   }
 }
