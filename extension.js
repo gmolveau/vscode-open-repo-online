@@ -127,29 +127,18 @@ function getRepoUrl() {
           .trim();
       }
 
-      let remoteUrl = "";
-
       if (!remoteName) {
-        // if still no remote, maybe the upstream is not well configured
-        // often happens with github
-        // so get the URL from 'origin'
-        remoteUrl = child_process
-          .execSync(`git ls-remote --get-url origin`, {
-            cwd: workspaceRoot,
-            encoding: "utf8",
-          })
-          .toString()
-          .trim();
-      } else {
-        // Get the remote URL
-        remoteUrl = child_process
-          .execSync(`git remote get-url ${remoteName}`, {
-            cwd: workspaceRoot,
-            encoding: "utf8",
-          })
-          .toString()
-          .trim();
+        throw new Error("badly configured upstream");
       }
+
+      // Get the remote URL
+      let remoteUrl = child_process
+        .execSync(`git remote get-url ${remoteName}`, {
+          cwd: workspaceRoot,
+          encoding: "utf8",
+        })
+        .toString()
+        .trim();
 
       if (!remoteUrl) {
         throw new Error("badly configured upstream");
@@ -179,6 +168,35 @@ function getRepoUrl() {
         .toString()
         .trim();
       remoteUrl = cleanUrl(remoteUrl) + "/blob/" + defaultBranch;
+      return remoteUrl;
+    } catch (error) {
+      // Ignore errors
+    }
+
+    // tries getting the remote URL of the current branch - method2
+    try {
+      const currentBranch = child_process
+        .execSync("git symbolic-ref --short HEAD", {
+          cwd: workspaceRoot,
+          encoding: "utf8",
+        })
+        .toString()
+        .trim();
+
+      // Get the remote URL from 'origin' as the last try
+      let remoteUrl = child_process
+        .execSync(`git ls-remote --get-url origin`, {
+          cwd: workspaceRoot,
+          encoding: "utf8",
+        })
+        .toString()
+        .trim();
+
+      if (!remoteUrl) {
+        throw new Error("badly configured upstream");
+      }
+
+      remoteUrl = cleanUrl(remoteUrl) + "/blob/" + currentBranch;
       return remoteUrl;
     } catch (error) {
       // Ignore errors
