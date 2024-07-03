@@ -75,7 +75,7 @@ function getRepoUrl() {
   if (workspaceFolder) {
     const workspaceRoot = workspaceFolder.uri.fsPath;
 
-    // tries getting the remote URL of the current branch
+    // tries getting the remote URL of the current branch - method1
     try {
       const output = child_process
         .execSync("git rev-parse --abbrev-ref --symbolic-full-name @{u}", {
@@ -100,21 +100,59 @@ function getRepoUrl() {
       // Ignore errors
     }
 
+    // tries getting the remote URL of the current branch - method2
+    try {
+      const currentBranch = child_process
+        .execSync("git symbolic-ref --short HEAD", {
+          cwd: workspaceRoot,
+          encoding: "utf8",
+        })
+        .toString()
+        .trim();
+      const remoteName = child_process
+        .execSync(`git config branch.${currentBranch}.remote`, {
+          cwd: workspaceRoot,
+          encoding: "utf8",
+        })
+        .toString()
+        .trim();
+
+      // Get the remote URL
+      let remoteUrl = child_process
+        .execSync(`git remote get-url ${remoteName}`, {
+          cwd: workspaceRoot,
+          encoding: "utf8",
+        })
+        .toString()
+        .trim();
+
+      remoteUrl = cleanUrl(remoteUrl) + "/blob/" + currentBranch;
+      vscode.window.showInformationMessage(remoteUrl);
+      vscode.window.showInformationMessage(currentBranch);
+      return remoteUrl;
+    } catch (error) {
+      // Ignore errors
+    }
+
     // tries getting the remote URL of the default branch
     try {
       const defaultBranch = child_process
         .execSync("git symbolic-ref refs/remotes/origin/HEAD", {
           cwd: workspaceRoot,
+          encoding: "utf8",
         })
         .toString()
         .trim()
         .replace("refs/remotes/origin/", "");
       let remoteUrl = child_process
-        .execSync(`git config --get remote.origin.url`, { cwd: workspaceRoot })
+        .execSync(`git config --get remote.origin.url`, {
+          cwd: workspaceRoot,
+          encoding: "utf8",
+        })
         .toString()
         .trim();
-      remoteUrl = cleanUrl(remoteUrl);
-      return remoteUrl + "/blob/" + defaultBranch;
+      remoteUrl = cleanUrl(remoteUrl) + "/blob/" + defaultBranch;
+      return remoteUrl;
     } catch (error) {
       // Ignore errors
     }
